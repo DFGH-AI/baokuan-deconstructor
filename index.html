@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta id="themeColorMeta" name="theme-color" content="#f5f6fa" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('baokuan-theme');
+        document.documentElement.dataset.theme = saved === 'dark' ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+  <title>爆款拆解官 · 把爆款拆成可复制的公式</title>
+  <meta name="description" content="整段粘贴视频文案，自动清洗、智能切段并拆解出黄金 3 秒钩子、脚本骨架、情绪价值锚点与 3 条可直接开拍的复刻选题。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%239b86ff'/%3E%3Cstop offset='1' stop-color='%234ea8ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%230b1020'/%3E%3Cpath d='M32 11l5.6 15.4L53 32l-15.4 5.6L32 53l-5.6-15.4L11 32l15.4-5.6L32 11z' fill='url(%23g)'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="./assets/styles.css" />
+  <script src="./assets/app.js" defer></script>
+</head>
+<body class="relative min-h-screen overflow-x-hidden bg-ink-900 font-sans text-slate-100 antialiased">
+  <div class="site-backdrop" aria-hidden="true">
+    <div class="backdrop-grid"></div>
+    <div class="aurora aurora-a"></div>
+    <div class="aurora aurora-b"></div>
+    <div class="aurora aurora-c"></div>
+    <div class="noise"></div>
+  </div>
+
+  <header class="site-header relative z-20 border-b border-white/[0.055]">
+    <div class="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between px-5 sm:px-8 xl:px-10">
+      <div class="flex items-center gap-3">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 2.8l2.45 6.75L21.2 12l-6.75 2.45L12 21.2l-2.45-6.75L2.8 12l6.75-2.45L12 2.8Z" fill="currentColor"/>
+            <circle cx="19.1" cy="4.9" r="1.25" fill="#FF8A65"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-[14px] font-semibold tracking-wide text-slate-100">爆款拆解官</span>
+            <span class="rounded-[4px] border border-brand-400/20 bg-brand-400/[0.08] px-1.5 py-px font-mono text-[8px] tracking-[0.14em] text-brand-300">PRO</span>
+          </div>
+          <p class="mt-0.5 font-mono text-[8px] uppercase tracking-[0.26em] text-slate-600">Viral Deconstructor</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button id="themeToggle" type="button" class="theme-toggle" aria-label="切换到深色模式" aria-pressed="false" title="切换到深色模式">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.5 14.7A8.6 8.6 0 0 1 9.3 3.5a8.6 8.6 0 1 0 11.2 11.2Z"/>
+          </svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3.8"/>
+            <path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/>
+          </svg>
+        </button>
+        <div class="header-divider hidden h-4 w-px bg-white/[0.08] sm:block"></div>
+        <div id="enginePill" class="engine-pill" title="AI 引擎连接状态">
+          <span id="engineDot" class="engine-dot"></span>
+          <span id="engineText">正在连接引擎</span>
+        </div>
+        <div class="header-divider hidden h-4 w-px bg-white/[0.08] sm:block"></div>
+        <span class="hidden font-mono text-[9px] tracking-[0.16em] text-slate-600 sm:inline">V1.0</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 mx-auto max-w-[1440px] px-5 pb-8 pt-8 sm:px-8 sm:pt-10 xl:px-10">
+    <section class="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+      <div class="max-w-[780px]">
+        <div class="flex items-center gap-2.5 font-mono text-[9px] uppercase tracking-[0.28em] text-brand-300/80">
+          <span class="relative flex h-1.5 w-1.5">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-ember-400 opacity-60"></span>
+            <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-ember-400"></span>
+          </span>
+          <span>Creator Intelligence</span>
+          <span class="text-slate-700">/</span>
+          <span class="tracking-[0.18em] text-slate-500">爆款方法论</span>
+        </div>
+
+        <h1 class="hero-title mt-3.5 text-[38px] font-semibold leading-[1.08] tracking-[-0.045em] sm:text-[48px] xl:text-[56px]">
+          把爆款，拆成<span class="gradient-text">可复制</span>的公式。
+        </h1>
+        <p class="mt-3 max-w-[650px] text-[13px] leading-7 text-slate-400 sm:text-sm">
+          不做「它为什么火」的无效分析，只给「下一条怎么拍」的行动指南。整段粘贴文案，自动清洗、切段，再一次拿到钩子、骨架、情绪锚点与 3 条可拍选题。
+        </p>
+      </div>
+
+      <div class="hero-metrics hidden shrink-0 items-stretch gap-px overflow-hidden rounded-xl border border-white/[0.07] bg-white/[0.035] lg:flex">
+        <div class="metric">
+          <span class="metric-value">04</span>
+          <span class="metric-label">维深度拆解</span>
+        </div>
+        <div class="metric">
+          <span class="metric-value">03</span>
+          <span class="metric-label">条复刻选题</span>
+        </div>
+        <div class="metric">
+          <span class="metric-value">30<span class="text-lg">s</span></span>
+          <span class="metric-label">平均耗时</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="workspace" class="mt-7 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_144px_minmax(0,1.12fr)] lg:items-stretch xl:gap-5">
+      <!-- 01 · 输入 -->
+      <section class="panel panel-input flex min-h-[568px] flex-col" aria-labelledby="inputTitle">
+        <header class="flex items-center justify-between border-b border-white/[0.06] px-5 py-3.5">
+          <div class="flex items-center gap-3">
+            <span class="step-index">01</span>
+            <div>
+              <h2 id="inputTitle" class="text-[13px] font-semibold tracking-wide text-slate-100">整段粘贴视频文案</h2>
+              <p class="mt-0.5 text-[10px] tracking-wide text-slate-500">带时间轴 / 说话人标记也可以</p>
+            </div>
+          </div>
+          <button id="sampleBtn" type="button" class="ghost-btn" title="填入一段示例文案">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5">
+              <path d="M12 3v3M12 18v3M4.2 7.5l2.6 1.5M17.2 15l2.6 1.5M4.2 16.5l2.6-1.5M17.2 9l2.6-1.5"/>
+              <circle cx="12" cy="12" r="3.2"/>
+            </svg>
+            载入示例
+          </button>
+        </header>
+
+        <div class="flex flex-1 flex-col px-4 pb-4 pt-3.5 sm:px-5">
+          <div class="mb-2 flex items-end justify-between">
+            <label for="scriptInput" class="field-label">Video Script <span class="ml-1.5 font-sans text-[10px] normal-case tracking-normal text-slate-600">整段粘贴</span></label>
+            <span class="char-meter"><span id="charCount">0</span><span class="text-slate-600"> / 8,000</span></span>
+          </div>
+
+          <div class="relative flex-1">
+            <textarea
+              id="scriptInput"
+              maxlength="8000"
+              spellcheck="false"
+              class="script-area"
+              placeholder="直接粘贴完整口播稿或字幕……&#10;&#10;带时间轴、说话人标记也没关系。AI 会自动清洗并切分钩子 / 正文 / 结尾，不需要提前手动拆分。"
+              aria-describedby="scriptHint"
+            ></textarea>
+            <div class="input-badge pointer-events-none absolute bottom-3 right-3 flex items-center gap-1.5 rounded-md border border-white/[0.05] bg-black/20 px-2 py-1 font-mono text-[8px] uppercase tracking-[0.16em] text-slate-600">
+              <span class="h-1 w-1 rounded-full bg-emerald-400/70"></span>
+              auto parse
+            </div>
+          </div>
+          <p id="scriptHint" class="mt-2 text-[10px] leading-5 text-slate-600">粘贴完整稿即可 · 仅用于本次分析，不落库</p>
+
+          <div class="pipeline-strip mt-2.5">
+            <div class="flex min-w-0 items-center gap-2.5">
+              <span class="pipeline-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+                  <path d="M13 2 5 13h6l-1 9 8-11h-6l1-9Z"/>
+                </svg>
+              </span>
+              <div class="min-w-0">
+                <p class="flex items-center gap-1.5 text-[10px] font-medium text-slate-200">
+                  一条龙模式
+                  <span id="pipelineState" class="pipeline-state">ON</span>
+                </p>
+                <p class="mt-0.5 truncate text-[9px] tracking-wide text-slate-500">自动清洗时间轴 · 智能切段 · 直接拆解</p>
+              </div>
+            </div>
+            <label class="toggle" title="关闭后不自动切段，直接把整段文案交给模型">
+              <input id="autoSegment" type="checkbox" class="sr-only" checked aria-label="开启一条龙自动切段" />
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+          </div>
+
+          <div class="mt-3.5">
+            <label for="platform" class="field-label">发布平台 <span class="ml-1.5 font-sans text-[10px] normal-case tracking-normal text-slate-600">决定拆解口径</span></label>
+            <div class="relative mt-2">
+              <span class="pointer-events-none absolute left-3.5 top-1/2 z-10 -translate-y-1/2 text-brand-300/70">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+                  <rect x="3" y="5" width="18" height="14" rx="3"/>
+                  <path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none"/>
+                </svg>
+              </span>
+              <select id="platform" class="platform-select">
+                <option value="douyin">抖音 · 强钩子 / 快节奏</option>
+                <option value="xiaohongshu">小红书 · 真实感 / 干货清单</option>
+                <option value="shipinhao">视频号 · 情绪共鸣 / 熟人转发</option>
+                <option value="bilibili">B 站 · 信息密度 / 梗文化</option>
+                <option value="kuaishou">快手 · 接地气 / 老铁信任</option>
+                <option value="shorts">YouTube Shorts · 好奇心缺口</option>
+              </select>
+              <span class="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5">
+                  <path d="m7 10 5 5 5-5"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <details id="advanced" class="advanced mt-3">
+            <summary>
+              <span class="flex items-center gap-2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 text-slate-500">
+                  <path d="M4 7h10M18 7h2M4 17h2M10 17h10"/>
+                  <circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>
+                </svg>
+                差异化模块
+              </span>
+              <span class="ml-auto flex items-center gap-2">
+                <span class="text-[9px] tracking-wide text-slate-600">评论挖矿</span>
+                <span class="details-divider h-2.5 w-px bg-white/10"></span>
+                <span class="text-[9px] tracking-wide text-slate-600">跨行迁移</span>
+              </span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="chevron ml-auto h-3 w-3 shrink-0 text-slate-600 sm:ml-0">
+                <path d="m7 10 5 5 5-5"/>
+              </svg>
+            </summary>
+            <div class="grid gap-3.5 border-t border-white/[0.055] px-3.5 py-3.5">
+              <div>
+                <label for="commentsInput" class="field-label text-[9px]">高赞评论 <span class="ml-1 font-sans text-[9px] normal-case tracking-normal text-slate-600">可选 · 每行一条</span></label>
+                <textarea id="commentsInput" maxlength="3000" rows="2" spellcheck="false" class="mini-area mt-1.5" placeholder="粘贴评论区前 3 条高赞，提取真实情绪并生成一条神评论。"></textarea>
+              </div>
+              <div>
+                <label for="nicheInput" class="field-label text-[9px]">目标赛道 <span class="ml-1 font-sans text-[9px] normal-case tracking-normal text-slate-600">可选 · 跨行迁移</span></label>
+                <div class="relative mt-1.5">
+                  <input id="nicheInput" maxlength="40" class="niche-input" placeholder="如：数码测评 / 母婴 / 职场知识" />
+                  <span class="cross-badge pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 rounded border border-white/[0.06] bg-white/[0.03] px-1.5 py-0.5 font-mono text-[8px] tracking-wider text-slate-600">CROSS</span>
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 中间操作区 -->
+      <div class="relative flex items-center justify-center lg:py-8">
+        <div class="action-line" aria-hidden="true"></div>
+        <div class="relative z-10 flex w-full items-center gap-3 lg:w-auto lg:flex-col lg:gap-5">
+          <button id="analyzeBtn" type="button" class="cta group relative flex h-[64px] w-full items-center justify-center gap-3 rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-4 focus-visible:ring-offset-ink-900 disabled:cursor-wait lg:h-[136px] lg:w-[136px] lg:flex-col lg:gap-1.5 lg:rounded-full" aria-describedby="ctaHint">
+            <span class="cta-halo" aria-hidden="true"></span>
+            <span class="cta-ring" aria-hidden="true"></span>
+            <span class="cta-grain" aria-hidden="true"></span>
+            <span id="ctaIcon" class="relative z-10 flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-white/[0.08] text-white transition-transform duration-300 group-hover:scale-105 lg:h-10 lg:w-10">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="h-[18px] w-[18px] lg:h-5 lg:w-5">
+                <path d="M12 3l1.9 5.4L19.5 10l-5.6 1.6L12 17l-1.9-5.4L4.5 10l5.6-1.6L12 3Z"/>
+                <path d="M19 16.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2Z" fill="currentColor" stroke="none"/>
+              </svg>
+            </span>
+            <span id="ctaSpinner" class="relative z-10 hidden h-7 w-7 items-center justify-center lg:h-9 lg:w-9">
+              <span class="h-6 w-6 animate-spin rounded-full border-2 border-white/25 border-t-white lg:h-8 lg:w-8"></span>
+            </span>
+            <span class="relative z-10 flex flex-col items-start lg:items-center">
+              <span id="ctaLabel" class="text-[14px] font-semibold tracking-wide text-white lg:text-[15px]">开始分析</span>
+              <span id="ctaHint" class="mt-0.5 font-mono text-[8px] uppercase tracking-[0.2em] text-white/55 lg:mt-1 lg:text-[9px]">⌘ + Enter</span>
+            </span>
+          </button>
+
+          <div class="hidden text-center lg:block">
+            <p class="font-mono text-[8px] uppercase tracking-[0.24em] text-slate-600">System Prompt</p>
+            <p class="mt-1.5 text-[10px] tracking-wide text-slate-500">不夸视频 · 只给抄法</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 · 输出 -->
+      <section class="panel panel-output flex min-h-[568px] flex-col" aria-labelledby="outputTitle">
+        <header class="flex items-center justify-between border-b border-white/[0.06] px-5 py-3.5">
+          <div class="flex items-center gap-3">
+            <span class="step-index">03</span>
+            <div>
+              <h2 id="outputTitle" class="text-[13px] font-semibold tracking-wide text-slate-100">拆解报告</h2>
+              <p class="mt-0.5 text-[10px] tracking-wide text-slate-500">清洗 · 切段 · 拆解，一步完成</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button id="copyBtn" type="button" class="icon-action" title="复制报告" aria-label="复制报告" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+                <rect x="9" y="9" width="11" height="11" rx="2.5"/>
+                <path d="M15 9V6.5A2.5 2.5 0 0 0 12.5 4h-6A2.5 2.5 0 0 0 4 6.5v6A2.5 2.5 0 0 0 6.5 15H9"/>
+              </svg>
+            </button>
+            <button id="downloadBtn" type="button" class="icon-action" title="下载报告" aria-label="下载报告" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+                <path d="M12 4v11m0 0 4-4m-4 4-4-4"/>
+                <path d="M5 19h14"/>
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <details id="pipelineDetails" class="pipeline-details" hidden>
+          <summary>
+            <span class="pipeline-check" aria-hidden="true">✓</span>
+            <span class="pipeline-done-title">一条龙完成</span>
+            <span class="pipeline-stat">清洗 <b id="cleanChars">0</b> 字</span>
+            <span class="pipeline-stat">切段 <b id="segmentCount">0</b> 段</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="pipeline-chevron h-3 w-3">
+              <path d="m7 10 5 5 5-5"/>
+            </svg>
+          </summary>
+          <div id="segmentList" class="segment-list"></div>
+        </details>
+
+        <div class="relative flex-1 p-3.5 sm:p-4">
+          <div class="result-shell relative h-full min-h-[400px] overflow-hidden rounded-xl border border-white/[0.055] bg-[#070b13]/75">
+            <textarea id="resultOutput" readonly spellcheck="false" class="result-area" aria-label="AI 拆解结果"></textarea>
+
+            <div id="emptyState" class="empty-state">
+              <div class="empty-visual" aria-hidden="true">
+                <span class="orbit orbit-1"></span>
+                <span class="orbit orbit-2"></span>
+                <span class="orbit orbit-3"></span>
+                <span class="orbit-dot orbit-dot-1"></span>
+                <span class="orbit-dot orbit-dot-2"></span>
+                <span class="empty-core">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+                    <path d="M12 3.5l1.9 5.2 5.2 1.9-5.2 1.9L12 17.7l-1.9-5.2-5.2-1.9 5.2-1.9L12 3.5Z"/>
+                    <path d="M18.6 17.2l.6 1.6 1.6.6-1.6.6-.6 1.6-.6-1.6-1.6-.6 1.6-.6.6-1.6Z" fill="currentColor" stroke="none"/>
+                  </svg>
+                </span>
+              </div>
+              <p class="mt-6 text-[14px] font-medium tracking-wide text-slate-200">等待投喂一条爆款</p>
+              <p class="mt-2 max-w-[280px] text-center text-[11px] leading-6 text-slate-500">
+                粘贴左侧文案，<span class="text-slate-300">30 秒</span>拿到能直接开拍的拆解报告。
+              </p>
+              <div class="mt-5 flex flex-wrap items-center justify-center gap-1.5">
+                <span class="empty-tag">钩子拆解</span>
+                <span class="empty-tag">骨架提取</span>
+                <span class="empty-tag">情绪锚点</span>
+                <span class="empty-tag">3 条复刻</span>
+              </div>
+            </div>
+
+            <div id="loadingState" class="loading-state" hidden>
+              <span class="scan-line" aria-hidden="true"></span>
+              <span class="scan-line scan-line-delay" aria-hidden="true"></span>
+              <div class="relative z-10 mx-auto w-full max-w-[360px] px-6">
+                <div class="flex items-center justify-between gap-4">
+                  <div class="flex items-center gap-3">
+                    <span class="loading-orb" aria-hidden="true"></span>
+                    <div>
+                      <p id="loadingTitle" class="text-[13px] font-medium text-slate-100">一条龙拆解中</p>
+                      <p id="loadingSub" class="mt-1 text-[10px] text-slate-500">正在清洗文案并切分脚本结构</p>
+                    </div>
+                  </div>
+                  <span id="loadingTimer" class="font-mono text-[10px] tracking-wider text-brand-300/80">0.0s</span>
+                </div>
+
+                <div class="mt-7 space-y-3.5">
+                  <div class="analysis-step is-active" data-step="0">
+                    <span class="step-dot"></span>
+                    <span class="text-[11px] tracking-wide">清洗文案 · 自动切段</span>
+                    <span class="step-tag ml-auto">RUNNING</span>
+                  </div>
+                  <div class="analysis-step" data-step="1">
+                    <span class="step-dot"></span>
+                    <span class="text-[11px] tracking-wide">定位黄金 3 秒钩子</span>
+                    <span class="step-tag ml-auto">QUEUED</span>
+                  </div>
+                  <div class="analysis-step" data-step="2">
+                    <span class="step-dot"></span>
+                    <span class="text-[11px] tracking-wide">提取脚本骨架与节奏</span>
+                    <span class="step-tag ml-auto">QUEUED</span>
+                  </div>
+                  <div class="analysis-step" data-step="3">
+                    <span class="step-dot"></span>
+                    <span class="text-[11px] tracking-wide">锁定情绪价值锚点</span>
+                    <span class="step-tag ml-auto">QUEUED</span>
+                  </div>
+                  <div class="analysis-step" data-step="4">
+                    <span class="step-dot"></span>
+                    <span class="text-[11px] tracking-wide">生成 3 条可拍选题</span>
+                    <span class="step-tag ml-auto">QUEUED</span>
+                  </div>
+                </div>
+
+                <div class="progress-track mt-7 h-1 overflow-hidden rounded-full bg-white/[0.055]">
+                  <div id="progressBar" class="h-full rounded-full bg-gradient-to-r from-brand-500 via-brand-400 to-ember-400 transition-all duration-700 ease-out" style="width: 8%"></div>
+                </div>
+                <p class="mt-3 font-mono text-[8px] uppercase tracking-[0.2em] text-slate-600">Rewriting for replication · Do not close</p>
+              </div>
+            </div>
+
+            <div id="errorState" class="error-state" hidden>
+              <div class="error-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path d="M12 8v5"/><circle cx="12" cy="16.7" r=".9" fill="currentColor" stroke="none"/>
+                  <path d="M10.3 4.4 3.4 17a2 2 0 0 0 1.8 3h13.6a2 2 0 0 0 1.8-3L13.7 4.4a2 2 0 0 0-3.4 0Z"/>
+                </svg>
+              </div>
+              <p class="mt-4 text-[14px] font-medium text-slate-100">这次没有拆成功</p>
+              <p id="errorMessage" class="mt-2 max-w-[320px] text-[11px] leading-6 text-slate-400">请求失败，请稍后重试。</p>
+              <p id="errorHint" class="mt-1 hidden max-w-[340px] text-[10px] leading-5 text-amber-300/70"></p>
+              <button id="retryBtn" type="button" class="retry-btn mt-5 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3.5 py-2 text-[11px] text-slate-200 transition-colors hover:border-brand-300/30 hover:bg-brand-400/10">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5">
+                  <path d="M20 11a8 8 0 1 0-2.3 6.1"/><path d="M20 4v7h-7"/>
+                </svg>
+                再试一次
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <footer class="flex items-center justify-between gap-3 border-t border-white/[0.06] px-5 py-3">
+          <div class="flex items-center gap-1.5">
+            <span class="footer-tag">一条龙</span>
+            <span class="footer-tag">4 维拆解</span>
+            <span class="footer-tag hidden sm:inline-flex">3 条复刻</span>
+            <span class="footer-tag hidden xl:inline-flex">可直接开拍</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span id="resultStatusDot" class="h-1.5 w-1.5 rounded-full bg-slate-600"></span>
+            <span id="resultStatus" class="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-600">Ready</span>
+          </div>
+        </footer>
+      </section>
+    </section>
+
+    <div class="mt-4 flex flex-col justify-between gap-2.5 px-0.5 text-[10px] text-slate-600 sm:flex-row sm:items-center">
+      <p class="flex items-center gap-1.5">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3 text-slate-500">
+          <rect x="5" y="10" width="14" height="10" rx="2.5"/>
+          <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+        </svg>
+        文案仅用于本次分析，不落库；API Key 只保存在服务端环境变量中。
+      </p>
+      <p class="font-mono uppercase tracking-[0.18em] text-slate-700">Built for creators · Qwen / Kimi</p>
+    </div>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">
+    <span id="toastIcon" class="toast-icon"></span>
+    <span id="toastText"></span>
+  </div>
+</body>
+</html>
